@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Yummier</string>
+
+    <!-- Common -->
+
+	<!-- Main activity -->
+    <string name="tab_menu_breakfast">Bfast</string>
+    <string name="tab_menu_lunch">Lunch</string>
+    <string name="tab_menu_dinner">Dinner</string>
+
+    <!-- Action bar related strings -->
+    <string name="action_search">Search</string>
+    
+    
+
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+   
+</resources>
