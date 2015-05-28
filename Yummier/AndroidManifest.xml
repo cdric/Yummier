@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yahoo.hackday.yummier"
+    package="com.sanfrenchiscan.yummier"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -13,14 +13,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    
     <application
-        android:name="com.yahoo.hackday.yummier.apps.Yummier"
+        android:name="com.sanfrenchiscan.yummier.apps.Yummier"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Yummier" >
         
         <activity
-            android:name="com.yahoo.hackday.yummier.activites.TodayMenuActivity"
+            android:name="com.sanfrenchiscan.yummier.activites.TodayMenuActivity"
             android:label="@string/app_name" >
             
             <intent-filter>
@@ -32,12 +32,12 @@
         </activity>
         
         <activity
-            android:name="com.yahoo.hackday.yummier.activites.TomorrowMenuActivity"
+            android:name="com.sanfrenchiscan.yummier.activites.TomorrowMenuActivity"
             android:label="@string/app_name" >
         </activity>
         
         <activity
-            android:name="com.yahoo.hackday.yummier.activites.YesterdayMenuActivity"
+            android:name="com.sanfrenchiscan.yummier.activites.YesterdayMenuActivity"
             android:label="@string/app_name" >
         </activity>
 
