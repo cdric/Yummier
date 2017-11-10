@@ -53,13 +53,6 @@ public abstract class AbstractMenuActivity extends AbstractSlidingMenuActivity i
 	// ------------------
 	// ACTION BAR ACTIONS
 	// ------------------
-
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main_activity, menu);
-//		return true;
-//	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,14 +102,6 @@ public abstract class AbstractMenuActivity extends AbstractSlidingMenuActivity i
 		fragment.filterListView(query);
 
    }
-	
-	
-//	@Override
-//	public void onTimePicked(Calendar time) {
-//		// display the selected time in the TextView
-//		EditText etDriverRideStart = (EditText) fragmentDriverRideDetails.getView().findViewById(R.id.et_driver_time_ride_start);
-//		etDriverRideStart.setText(DateFormat.format(AppConstants.DRIVER_RIDE_DATE_FORMAT, time));
-//	}
 	
 	// BUTTON EVENTS
 	
