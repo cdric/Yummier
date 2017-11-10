@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sanfrenchiscan.yummier.models.Dish;
 import com.sanfrenchiscan.yummier.models.DishAttribute;
 import com.sanfrenchiscan.yummier.R;
@@ -49,6 +50,11 @@ public class DishDetailsDialogFragment extends DialogFragment {
 		
 		Dish dish = (Dish) getArguments().getSerializable("dish");
 		
+		// Initialize ImageLoader to prevent runtime crash
+		// TODO: Do we need to init here or can we do it only once?
+		ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(view.getContext()));
+		
+		// Display image
 		ImageLoader.getInstance().displayImage(dish.getLargeDishImage(), ivDisImageView);
 		
 		String title = dish.getName();
