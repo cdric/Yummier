@@ -1,12 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-<!--     <item -->
-<!--         android:id="@+id/action_search" -->
-<!--         android:icon="@drawable/ic_action_search" -->
-<!--         android:orderInCategory="100" -->
-<!--         android:onClick="onSearchAction" -->
-<!--         android:showAsAction="always" -->
-<!--         android:title="@string/action_search"/> -->
     
     <item android:id="@+id/action_refresh"
           android:orderInCategory="1"
