@@ -195,10 +195,31 @@ public class Dish implements Serializable {
 				dish.description = jsonObject.getString("description_full");
 				
 				int dayOfWeek = 1;
-				try {
-				   dayOfWeek = Integer.valueOf(jsonObject.getString("days_of_week"));
-				} catch (NumberFormatException nfe) {
-				   Log.e("error", "Can't process days_of_week: [" + jsonObject.getString("days_of_week") + "]");
+				
+				// "days_of_week" can be either sindle or multiple
+				// multiple = "1|2|3|4|5"
+				// single = "3"
+				// The code below extract the value for both case
+				// In the case of a multiple value, we only pick up the first value
+				// TODO: Understand why we even need to parse this value. Is this even used?
+				
+				String dow = jsonObject.getString("days_of_week");
+				if (dow.length() == 1) {
+				
+					try {
+					   dayOfWeek = Integer.valueOf(dow);
+					} catch (NumberFormatException nfe) {
+					   Log.e("error", "Can't process days_of_week: [" + jsonObject.getString("days_of_week") + "]");
+					}
+					
+				} else {
+					
+					try {
+						   dayOfWeek = Integer.valueOf(dow.indexOf(0));
+					} catch (NumberFormatException nfe) {
+					   Log.e("error", "Can't process days_of_week: [" + jsonObject.getString("days_of_week") + "]");
+					}
+					
 				}
 				
 				DateTime adjustedDate = date.plusDays(dayOfWeek-1);
