@@ -5,11 +5,16 @@ import android.net.Uri;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.sanfrenchiscan.yummier.constants.AppConstants;
 import com.sanfrenchiscan.yummier.models.SearchFilters;
 
 public class GoogleImageSearchClient {
 	
-	private final String API_BASE_URL = "https://ajax.googleapis.com/";
+	// Google Custom Image Search Reference: https://developers.google.com/custom-search/json-api/v1/reference/cse/list
+	// This class was previously using Google Image Search that got deprecated in 2011
+	// Previous reference was: https://developers.google.com/image-search/v1/jsondevguide#json-reference
+	
+	private final String API_BASE_URL = "https://www.googleapis.com/";
     private AsyncHttpClient client;
     
     private static GoogleImageSearchClient instance = null;
@@ -43,6 +48,9 @@ public class GoogleImageSearchClient {
 		
 		SearchFilters filters = new SearchFilters();
 		filters.setImageType("photo");
+		filters.setColorFilter("color");
+		filters.setImageSize("medium");
+		filters.setSearchType("image");
 		
 		String url = getApiUrl(buildGoogleImageSearchQuery(dishDescription, filters));
 		client.get(url, null, handler);
@@ -56,7 +64,7 @@ public class GoogleImageSearchClient {
 	 * @return Return a formatter query to the Google Search API
 	 * 
 	 * Documentation:
-	 * https://developers.google.com/image-search/v1/jsondevguide#json_reference
+	 * https://developers.google.com/custom-search/json-api/v1/reference/cse/list
 	 */
 	private static String buildGoogleImageSearchQuery(String query,
 			SearchFilters searchFilters) {
@@ -64,27 +72,36 @@ public class GoogleImageSearchClient {
 		int pageSize = 1;
 		
 		StringBuffer searchQuery = new StringBuffer();
-		searchQuery.append("ajax/services/search/images?");
-		searchQuery.append("v=" + "1.0");
+		searchQuery.append("customsearch/v1?");
+		//searchQuery.append("v=" + "1.0"); // TODO: CONFIRM NOT USED ANYMORE & THEN DELETE
+		
+		// Query
+		searchQuery.append("q=" + Uri.encode(query));
+		
+		// API Key
+		searchQuery.append("&key=" + Uri.encode(AppConstants.GOOGLESEARCH_APIKEY_YUMMIER));
+		
+		// Custom Search Engine (define on the Google Management console at: 
+		searchQuery.append("&cs=" + Uri.encode(AppConstants.GOOGLESEARCH_CS_YUMMIER));
 		
 		if (searchFilters != null) {
 			if (searchFilters.getColorFilter() != null) {
-				searchQuery.append("&imgcolor=" + searchFilters.getColorFilter());
+				searchQuery.append("&imgColorType=" + searchFilters.getColorFilter());
 			}
 			if (searchFilters.getImageSize() != null) {
-				searchQuery.append("&imgsz=" + searchFilters.getImageSize());
+				searchQuery.append("&imgSize=" + searchFilters.getImageSize());
 			}
 			if (searchFilters.getImageType() != null) {
-				searchQuery.append("&imgtype=" + searchFilters.getImageType());
+				searchQuery.append("&imgType=" + searchFilters.getImageType());
 			}
 			if (searchFilters.getSiteFilter() != null) {
-				searchQuery.append("&as_sitesearch=" + Uri.encode(searchFilters.getSiteFilter()));
+				searchQuery.append("&siteSearch=" + Uri.encode(searchFilters.getSiteFilter()));
 			}
 		}
 		
-		searchQuery.append("&rsz=" + pageSize);
+		// Number of search results to return per page
+		searchQuery.append("&num=" + pageSize);
 		//searchQuery.append("&start=" + (pageSize * pageIndex));
-		searchQuery.append("&q=" + Uri.encode(query));
 		
 		return searchQuery.toString();
 	}

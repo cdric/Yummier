@@ -19,11 +19,13 @@ public class ImageResult implements Serializable {
 	private String fullUrl;
 	private String thumbUrl;
 	
+	// Default constructor
 	public ImageResult(JSONObject json) {
 		
 		try {
-			this.fullUrl = json.getString("url");
-			this.thumbUrl = json.getString("tbUrl");
+			this.fullUrl = json.getString("link");
+			JSONObject imageJsonResults = json.getJSONObject("image");
+			this.thumbUrl = imageJsonResults.getString("thumbnailLink");
 			
 		} catch (JSONException e) {
 			this.fullUrl = null;

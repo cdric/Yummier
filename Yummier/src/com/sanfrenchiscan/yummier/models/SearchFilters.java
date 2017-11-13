@@ -17,6 +17,7 @@ public class SearchFilters implements Serializable {
 	private String colorFilter = null;
 	private String imageType = null;
 	private String siteFilter = null;
+	private String searchType = null;
 	
 	/** 
 	 * Default constructor
@@ -37,6 +38,14 @@ public class SearchFilters implements Serializable {
 
 	public void setColorFilter(String colorFilter) {
 		this.colorFilter = colorFilter;
+	}
+	
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 
 	public String getImageType() {
