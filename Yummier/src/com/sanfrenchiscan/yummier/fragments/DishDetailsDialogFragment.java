@@ -52,7 +52,7 @@ public class DishDetailsDialogFragment extends DialogFragment {
 		
 		// Initialize ImageLoader to prevent runtime crash
 		// TODO: Do we need to init here or can we do it only once?
-		ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(view.getContext()));
+		// ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(view.getContext()));
 		
 		// Display image
 		ImageLoader.getInstance().displayImage(dish.getLargeDishImage(), ivDisImageView);
