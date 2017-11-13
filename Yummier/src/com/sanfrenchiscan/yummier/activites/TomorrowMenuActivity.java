@@ -33,10 +33,13 @@ public class TomorrowMenuActivity extends AbstractMenuActivity {
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_E);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_F);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_G);
+		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_SF_MISSION_STREET);
 		
 		List<String> menuDates = new ArrayList<String>();
 		
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+		
+		// If tomorrow is after Friday, go to Monday
 		DateTime nextBusinessDay = DateTime.now();
 		if (nextBusinessDay.getDayOfWeek() >= DateTimeConstants.FRIDAY) {
 			nextBusinessDay = nextBusinessDay.plusWeeks(1);

@@ -36,7 +36,8 @@ public class BonAppetitClient {
 
 	/**
 	 * Fetch the menu for a given cafe and a given week
-	 * 
+	 * Example
+	 *  http://legacy.cafebonappetit.com/api/1/cafe/684/date/2017-10-13/format/json
 	 * @param handler
 	 */
 	public void getMenuForCafe(AsyncHttpResponseHandler handler, String cafeId, String weekDate) {

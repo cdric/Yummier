@@ -6,6 +6,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sanfrenchiscan.yummier.R;
+import com.sanfrenchiscan.yummier.apps.Yummier;
+import com.sanfrenchiscan.yummier.models.Dish;
+import com.sanfrenchiscan.yummier.models.DishAttribute;
+import com.sanfrenchiscan.yummier.models.ImageResult;
+
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -16,16 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sanfrenchiscan.yummier.apps.Yummier;
-import com.sanfrenchiscan.yummier.models.Dish;
-import com.sanfrenchiscan.yummier.models.DishAttribute;
-import com.sanfrenchiscan.yummier.models.ImageResult;
-import com.sanfrenchiscan.yummier.R;
-
 /**
- * Custom adapter for the Passenger list view
+ * Custom adapter for the DishItem list view
  * 
  * @author C�dric Lignier <cedric.lignier@free.fr>
  *
@@ -101,10 +101,10 @@ public class DishItemsAdapter extends ArrayAdapter<Dish> {
 						JSONArray imageJsonResults = null;
 						try {
 							
-							imageJsonResults = response.getJSONObject("responseData").getJSONArray("results");
+							imageJsonResults = response.getJSONObject("responseData").getJSONArray("items");
 							List<ImageResult> results = ImageResult.fromJSONArray(imageJsonResults);
 							
-							//Log.d("DEBUG", results.toString());
+						    //Log.d("DEBUG - getImageForDish", results.toString());
 							
 							if (results != null && !results.isEmpty()) {
 							   ImageResult image = results.get(0);
@@ -117,6 +117,18 @@ public class DishItemsAdapter extends ArrayAdapter<Dish> {
 						} catch (JSONException e) { 
 							e.printStackTrace();
 						}
+					}
+					
+					@Override
+					public void onFailure (Throwable exception, JSONObject response) {
+						
+						String imageUriLarge = "assets://no-photo-icon.jpg"; // from assets
+						String imageUriSmall = "assets://no-image-icon.png"; // from assets
+						ImageLoader.getInstance().displayImage(imageUriSmall, imageView);
+						
+						dish.setSmallDishImage(imageUriSmall);
+						dish.setLargeDishImage(imageUriLarge);
+
 					}
 					
 				}, dish.getName());

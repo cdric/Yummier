@@ -33,10 +33,13 @@ public class YesterdayMenuActivity extends AbstractMenuActivity {
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_E);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_F);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_G);
+		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_SF_MISSION_STREET);
 		
 		List<String> menuDates = new ArrayList<String>();
 		
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+		
+		// If yesterday is Monday, go back to Friday
 		DateTime previousBusinessDay = DateTime.now();
 		if (previousBusinessDay.getDayOfWeek() <= DateTimeConstants.MONDAY) {
 			previousBusinessDay = previousBusinessDay.minusWeeks(1);

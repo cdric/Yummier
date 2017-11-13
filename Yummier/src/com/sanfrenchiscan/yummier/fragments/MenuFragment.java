@@ -30,12 +30,6 @@ import com.sanfrenchiscan.yummier.models.Dish;
 import com.sanfrenchiscan.yummier.R;
 
 public class MenuFragment extends Fragment implements DishItemsAdapterInterface {
-	
-//	public interface MenuFragmentListener {
-//
-//		public void on
-//		
-//	}
 
 	private ListView lvMenuItems;
 	private TextView tvEmptyList, tvMenuDate;
@@ -148,25 +142,32 @@ public class MenuFragment extends Fragment implements DishItemsAdapterInterface 
 				try {
 					JSONObject cafeObj = body.getJSONObject("cafe");
 					JSONArray menuArr = cafeObj.getJSONArray("menu");
-					JSONObject menusObj = menuArr.getJSONObject(0);
-					JSONArray daysArr = menusObj.getJSONArray("days");
-					JSONObject dayArr = daysArr.getJSONObject(0);
-					JSONObject stationsObj = dayArr.getJSONObject("stations");
 					
-					String date = menusObj.getString("start_date");
-					DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-					mDishes.addAll(Dish.fromJsonStations(stationsObj, formatter.parseDateTime(date), dishServedFor, cafeObj.getString("name")));					
-					mNbCafes++;
+					// Check if the cafe has menu attach to it
+					if (menuArr.length() >0) {
 					
-					if (mNbCafes == (mNbCafesMax-1)) {
-					   updateListViewWithMenuItems(new ArrayList<Dish>(mDishes));
+						JSONObject menusObj = menuArr.getJSONObject(0);
+						JSONArray daysArr = menusObj.getJSONArray("days");
+						JSONObject dayArr = daysArr.getJSONObject(0);
+						JSONObject stationsObj = dayArr.getJSONObject("stations");
+						
+						String date = menusObj.getString("start_date");
+						DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+	
+						mDishes.addAll(Dish.fromJsonStations(stationsObj, formatter.parseDateTime(date), dishServedFor, cafeObj.getString("name")));					
+						mNbCafes++;
+						
+						if (mNbCafes == (mNbCafesMax-1)) {
+						   updateListViewWithMenuItems(new ArrayList<Dish>(mDishes));
+						}
+					
 					}
 					
 					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					Log.e("error", "Something wrong parsing this JSON: " + body.toString());
 				}
 				
 			}

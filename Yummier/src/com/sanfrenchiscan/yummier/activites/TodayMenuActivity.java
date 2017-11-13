@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -32,10 +33,23 @@ public class TodayMenuActivity extends AbstractMenuActivity {
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_E);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_F);
 		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_BUILDING_G);
+		cafeList.add(AppConstants.BONAPPETIT_CAFE_YAHOO_SF_MISSION_STREET);
 		
 		List<String> menuDates = new ArrayList<String>();
+		
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-		String dateCode = formatter.print(DateTime.now());
+		
+		// If today is after Friday, go to Monday
+		DateTime nextBusinessDay = DateTime.now();
+		if (nextBusinessDay.getDayOfWeek() >= DateTimeConstants.SATURDAY) {
+			nextBusinessDay = nextBusinessDay.plusWeeks(1);
+			nextBusinessDay = nextBusinessDay.withDayOfWeek(DateTimeConstants.MONDAY);
+		} else {
+			nextBusinessDay = nextBusinessDay.plusDays(1);
+		}
+		String dateCode = formatter.print(nextBusinessDay);
+		menuDates.add(dateCode);
+		
 		menuDates.add(dateCode);
 		
 		// Define action bar tabs
